@@ -1,6 +1,40 @@
 package lecture7;
 
-public class DLList{
+import java.util.Iterator;
+
+public class DLList implements Iterable<Integer>{
+
+    public class DLListiterator implements Iterator<Integer>{
+
+        int pos;
+
+        public DLListiterator(){
+            pos = 0;
+        }
+
+        public boolean hasNext(){
+            if(pos < size){
+                return true;
+            }
+            return false;
+        }
+
+        public Integer next(){
+            int toreturn = 0;
+            Node p = sentinel.next;
+            int position = 0;
+            while(p!=sentinel){
+                if(position == pos){
+                    toreturn = p.item;
+                }
+                p = p.next;
+                position++;
+            }
+            pos++;
+            return toreturn;
+        }
+
+    }
     
     private class Node{
         Node prev;
@@ -56,5 +90,23 @@ public class DLList{
     }
     public int getfirst(){
         return sentinel.next.item;
+    }
+
+    public int get(int i){
+        Node p = sentinel.next;
+        int position = 0;
+        int toreturn = 0;
+        while(p!=sentinel){
+            if(position == i){
+                 toreturn = p.item;
+            }
+            p = p.next;
+            position++;
+        }
+        return toreturn;
+    }   
+
+    public Iterator<Integer> iterator(){
+        return  new DLListiterator();
     }
 }

@@ -52,8 +52,6 @@ public class Arrayset<T> implements Iterable<T>{
         }
     }
 
-    }
-
     public Iterator<T> iterator(){
         return new ArrayIterator();
     }
@@ -63,8 +61,7 @@ public class Arrayset<T> implements Iterable<T>{
         String returnedstring = "[";
 
         for(int i=0 ; i<size ; i++){
-            returnedstring += items[i]; 
-            returnedstring+=",";
+            returnedstring += items[i] + ","; 
         }   
 
         returnedstring+="]";

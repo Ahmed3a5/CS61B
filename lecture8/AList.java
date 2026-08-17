@@ -1,6 +1,8 @@
 package lecture8;
 
-public class AList{
+import java.util.Iterator;
+
+public class AList implements Iterable<Integer>{
     int[] items;
     int size;
 
@@ -55,6 +57,32 @@ public class AList{
             }
             
         }
+    }
+
+    public class AListiterator implements Iterator<Integer>{
+        public int  pos;
+
+        public AListiterator(){
+            pos = 0;
+        }
+
+        public boolean hasNext(){
+            if(pos > size){
+                return false;
+            }
+            return true;
+        }
+
+        public Integer next(){
+            int toreturn = items[pos];
+            pos++;
+            return toreturn;
+        }
+
+    }
+
+    public Iterator<Integer> iterator(){
+        return new AListiterator();
     }
 
     public int size(){

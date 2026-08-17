@@ -4,6 +4,8 @@ import static com.google.common.truth.Truth.assertThat;
 
 import org.junit.Test;
 
+import java.util.Iterator;
+
 public class AListtest {
 
     @Test
@@ -35,5 +37,21 @@ public class AListtest {
             assertThat(x.get(index)).isEqualTo(i);
             index++;
         }
+    }
+
+    @Test
+    public static void testIterator(){
+        AList x = new AList();
+        
+        for(int i = 0 ; i <= 2000 ; i++ ){
+            x.addfirst(i);
+        }
+
+        // System.out.print(x.get(4));
+
+        for(int i : x){
+            System.out.println(i);
+        }
+
     }
 }

@@ -46,6 +46,9 @@ public class Arrayset<T> implements Iterable<T>{
     }
 
     public void add(T x){
+        if(x == null){
+            throw new IllegalArgumentException("can not add null");
+        }
         if(!contains(x)){
             items[size] = x;
             size++;
@@ -92,9 +95,9 @@ public class Arrayset<T> implements Iterable<T>{
 
         System.out.println(aset);
 
-        // for(int i : aset){
-        //     System.out.println(i);
-        // }
+        for(int i : aset){
+            System.out.println(i);
+        }
 
         // Iterator<Integer> assss = aset.iterator();
 

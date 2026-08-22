@@ -9,7 +9,7 @@ public class DLListtest {
 
     @Test
     public void testaddlast(){
-        DLList n = new DLList();
+        DLList<Integer> n = new DLList<>();
         n.addlast(5);
         n.addlast(10);
 
@@ -20,7 +20,7 @@ public class DLListtest {
 
     @Test
     public void testget(){
-        DLList n = new DLList();
+        DLList<Integer> n = new DLList<>();
         n.addlast(5);
         n.addlast(10);
         n.addlast(7);
@@ -29,8 +29,8 @@ public class DLListtest {
     }
 
     @Test
-    public static void testiterator(){
-        DLList n = new DLList();
+    public void testiterator(){
+        DLList<Integer> n = new DLList<>();
         n.addlast(5);
         n.addlast(10);
         n.addfirst(7);
@@ -39,9 +39,5 @@ public class DLListtest {
             System.out.println(i);
         }
 
-    }
-
-    public static void main(String[] args){
-        testiterator();
     }
 }

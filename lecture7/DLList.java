@@ -48,19 +48,17 @@ public class DLList<T> implements Iterable<T>{
     }
 
     private Node sentinel;
-    public int size;
+    private int size;
 
     public DLList(){
-        T s = (T) new Object();
-        sentinel = new Node(null, s, null);
+        sentinel = new Node(null, null, null);
         sentinel.next = sentinel;
         sentinel.prev = sentinel;
         size = 0;
     }
 
     public DLList(T i){
-        T s = (T) new Object();
-        sentinel = new Node(null , s , null);
+        sentinel = new Node(null , null, null);
         Node n = new Node(sentinel , i , sentinel);
         sentinel.prev = n;
         sentinel.next = n;

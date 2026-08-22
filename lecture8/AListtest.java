@@ -40,7 +40,7 @@ public class AListtest {
     }
 
     @Test
-    public static void testIterator(){
+    public void testIterator(){
         AList x = new AList();
         
         for(int i = 0 ; i <= 2000 ; i++ ){

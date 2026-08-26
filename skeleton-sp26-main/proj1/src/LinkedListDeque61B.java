@@ -73,7 +73,7 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
             increase the size by one 
 
         */
-        Node n = new Node(null,x , null);
+        Node n = new Node(null, x , null);
         n.prev = sentinel.prev;
         n.next = sentinel;
         sentinel.prev.next = n;

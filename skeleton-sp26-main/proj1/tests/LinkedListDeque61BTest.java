@@ -172,7 +172,7 @@ public class LinkedListDeque61BTest {
         LLd.addFirst(4);
         LLd.addLast(7);
         LLd.addLast(8);
-        int removeditem  = LLd.removeLast();
+        // int removeditem  = LLd.removeLast();
 
         assertThat(LLd.toList()).containsExactly( 4 ,0 , 7).inOrder();
 
@@ -209,7 +209,7 @@ public class LinkedListDeque61BTest {
         LLd.addFirst(4);
         LLd.addLast(7);
         LLd.addLast(8);
-        int removeditem  = LLd.removeFirst();
+        // int removeditem  = LLd.removeFirst();
 
 
         assertThat(LLd.toList()).containsExactly( 0 , 7 , 8).inOrder();

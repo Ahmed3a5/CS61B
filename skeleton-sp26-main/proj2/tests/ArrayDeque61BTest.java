@@ -76,7 +76,183 @@ public class ArrayDeque61BTest {
 
         assertThat(alist.toList()).containsExactly(8 , 4 , 1 , 7 , 6 , 3 ).inOrder();
         assertThat(alist2.toList()).containsExactly().inOrder();
+    }
 
+    @Test
+
+    public void testget(){
+        Deque61B<Integer> alist = new ArrayDeque61B<>();
+        Deque61B<Integer> alist2 = new ArrayDeque61B<>();
+
+
+        alist.addFirst(1);  // [1]
+        alist.addLast(7);   // [1 ,7]
+        alist.addFirst(4);  // [4 ,1 ,7]   
+        alist.addFirst(8);  // [8 ,4 ,1 ,7]
+        alist.addLast(6);   // [8 ,4 ,1  ,7 ,6]
+        alist.addLast(3);   // [8 ,4 ,1 ,7 ,6 ,3]
+
+        assertThat(alist.get(0)).isEqualTo(8);
+        assertThat(alist.get(1)).isEqualTo(4);
+        assertThat(alist.get(2)).isEqualTo(1);
+        assertThat(alist.get(3)).isEqualTo(7);
+        assertThat(alist.get(4)).isEqualTo(6);
+        assertThat(alist.get(5)).isEqualTo(3);
+        assertThat(alist.get(17)).isEqualTo(null);
+        assertThat(alist.get(-1)).isEqualTo(null);
+        assertThat(alist2.get(0)).isEqualTo(null);
+    }
+
+    @Test
+
+    public void testisempty(){
+
+        Deque61B<Integer> alist = new ArrayDeque61B<>();
+        Deque61B<Integer> alist2 = new ArrayDeque61B<>();
+
+
+        alist.addFirst(1);  // [1]
+        alist.addLast(7);   // [1 ,7]
+        alist.addFirst(4);  // [4 ,1 ,7]   
+        alist.addFirst(8);  // [8 ,4 ,1 ,7]
+        alist.addLast(6);   // [8 ,4 ,1  ,7 ,6]
+        alist.addLast(3);   // [8 ,4 ,1 ,7 ,6 ,3]
+
+        assertThat(alist.isEmpty()).isEqualTo(false);
+        assertThat(alist2.isEmpty()).isEqualTo(true);
+    }
+
+    @Test
+
+    public void testsize(){
+        Deque61B<Integer> alist = new ArrayDeque61B<>();
+        Deque61B<Integer> alist2 = new ArrayDeque61B<>();
+
+
+        alist.addFirst(1);  // [1]
+        alist.addLast(7);   // [1 ,7]
+        alist.addFirst(4);  // [4 ,1 ,7]   
+        alist.addFirst(8);  // [8 ,4 ,1 ,7]
+        alist.addLast(6);   // [8 ,4 ,1  ,7 ,6]
+        alist.addLast(3);   // [8 ,4 ,1 ,7 ,6 ,3]
+
+        assertThat(alist.size()).isEqualTo(6);
+        assertThat(alist2.size()).isEqualTo(0);
+    }
+
+    @Test
+
+    public void testremovefirst(){
+        Deque61B<Integer> alist = new ArrayDeque61B<>();
+        alist.addFirst(1);  // [1]
+        alist.addLast(7);   // [1 ,7]
+        alist.addFirst(4);  // [4 ,1 ,7]   
+        alist.addFirst(8);  // [8 ,4 ,1 ,7]
+        alist.addLast(6);   // [8 ,4 ,1  ,7 ,6]
+        alist.addLast(3);   // [8 ,4 ,1 ,7 ,6 ,3]
+
+        assertThat(alist.getFirst()).isEqualTo(8);
+
+        int removed1 = alist.removeFirst();
+
+        assertThat(alist.getFirst()).isEqualTo(4);
+        assertThat(removed1).isEqualTo(8);
+
+        int removed2 = alist.removeFirst();
+
+        assertThat(alist.getFirst()).isEqualTo(1);
+        assertThat(removed2).isEqualTo(4);
+
+
+        int removed3 = alist.removeFirst();
+        assertThat(alist.getFirst()).isEqualTo(7);
+        assertThat(removed3).isEqualTo(1);
+
+
+        int removed4 = alist.removeFirst();
+        assertThat(alist.getFirst()).isEqualTo(6);
+        assertThat(removed4).isEqualTo(7);
+
+
+        int removed5 = alist.removeFirst();
+        assertThat(alist.getFirst()).isEqualTo(3);
+        assertThat(removed5).isEqualTo(6);
+
+
+        int removed6 = alist.removeFirst();
+        assertThat(alist.getFirst()).isEqualTo(null);
+        assertThat(removed6).isEqualTo(3);
+
+
+
+        assertThat(alist.toList()).containsExactly().inOrder();
+
+    }
+
+    
+    @Test
+
+    public void testremovelast(){
+
+        Deque61B<Integer> alist = new ArrayDeque61B<>();
+        alist.addFirst(1);  // [1]
+        alist.addLast(7);   // [1 ,7]
+        alist.addFirst(4);  // [4 ,1 ,7]   
+        alist.addFirst(8);  // [8 ,4 ,1 ,7]
+        alist.addLast(6);   // [8 ,4 ,1  ,7 ,6]
+        alist.addLast(3);   // [8 ,4 ,1 ,7 ,6 ,3]
+
+        assertThat(alist.getLast()).isEqualTo(3);
+
+        int removed1 = alist.removeLast();
+
+        assertThat(alist.getLast()).isEqualTo(6);
+        assertThat(removed1).isEqualTo(3);
+
+        int removed2 = alist.removeLast();
+
+        assertThat(alist.getLast()).isEqualTo(7);
+        assertThat(removed2).isEqualTo(6);
+
+        int removed3 = alist.removeLast();
+        assertThat(alist.getLast()).isEqualTo(1);
+        assertThat(removed3).isEqualTo(7);
+
+
+        int removed4 = alist.removeLast();
+        assertThat(alist.getLast()).isEqualTo(4);
+        assertThat(removed4).isEqualTo(1);
+
+
+        int removed5 = alist.removeLast();
+        assertThat(alist.getLast()).isEqualTo(8);
+        assertThat(removed5).isEqualTo(4);
+
+
+        int removed6 = alist.removeLast();
+        assertThat(alist.getLast()).isEqualTo(null);
+        assertThat(removed6).isEqualTo(8);
+
+        assertThat(alist.toList()).containsExactly().inOrder();
+    }
+
+    @Test
+
+    public void testresize(){
+
+        Deque61B<Integer> alist = new ArrayDeque61B<>();
+        alist.addFirst(1);  // [1]
+        alist.addLast(7);   // [1 ,7]
+        alist.addFirst(4);  // [4 ,1 ,7]   
+        alist.addFirst(8);  // [8 ,4 ,1 ,7]
+        alist.addLast(6);   // [8 ,4 ,1  ,7 ,6]
+        alist.addLast(3);   // [8 ,4 ,1 ,7 ,6 ,3]
+        alist.addLast(5);   // [8 ,4 ,1 ,7 ,6 ,3 ,5]
+        alist.addLast(9);   // [8 ,4 ,1 ,7 ,6 ,3 ,5 ,9]
+        alist.addFirst(10); // [10 ,8 ,4 ,1 ,7 ,6 ,3 ,5 ,9]
+        alist.addFirst(11); // [11 ,10 ,8 ,4 ,1 ,7 ,6 ,3 ,5 ,9]
+
+        assertThat(alist.toList()).containsExactly(11 , 10 , 8 , 4 , 1 , 7 , 6 , 3 , 5 , 9 ).inOrder();
 
     }
 }

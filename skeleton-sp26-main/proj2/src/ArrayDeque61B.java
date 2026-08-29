@@ -15,7 +15,10 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
     }
 
     @Override
-    public void addFirst(T x) {  
+    public void addFirst(T x) {
+        if(size >= items.length){
+            return;
+        }
         if(nextfirst == 0){
             items[nextfirst] = x;
             nextfirst = items.length-1;
@@ -25,12 +28,14 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
             nextfirst--;
         }
         size++;
-        
-           
+
     }
 
     @Override
     public void addLast(T x){
+        if(size >= items.length){
+            return;
+        }
         if(nextlast >= items.length-1){
             items[nextlast] = x;
             nextlast = 0;
@@ -40,6 +45,7 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
             nextlast++;
         }
         size++;
+
     }
 
     @Override
@@ -49,7 +55,7 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
         for(int i = 0 ; i < size ; i++){
             tracker++;
             if(tracker > items.length-1){
-                tracker = 0;            
+               tracker = 0;            
             }
             list.add(i , items[tracker]);
         }
@@ -58,8 +64,10 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
 
     @Override
     public boolean isEmpty() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isEmpty'");
+        if(size == 0){
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -69,36 +77,59 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
 
     @Override
     public T getFirst() {
+        if(nextfirst >= items.length-1){
+            return items[0];
+        }
        return items[nextfirst+1];
     }
 
     @Override
     public T getLast() {
+        if(nextlast <= 0){
+            return items[items.length-1];
+        }
         return items[nextlast-1];
     }
 
     @Override
     public T removeFirst() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeFirst'");
+        if(nextfirst >= items.length-1){
+            nextfirst = 0;
+        }
+        else{
+            nextfirst =nextfirst+1;
+        }
+        T removed = items[nextfirst];
+        size--;
+       return removed;
     }
 
     @Override
     public T removeLast() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeLast'");
+        if(nextlast <= 0 ){
+            nextlast = items.length-1;
+        }
+        else{
+            nextlast = nextlast-1;
+        }
+       T removed = items[nextlast];
+       size--;
+       return removed;
     }
 
     @Override
     public T get(int index) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'get'");
+        if(index > size){
+            return null;
+        }
+        int correctedindex = (nextfirst+1 + index) % items.length;
+        return items[correctedindex];
     }
 
     @Override
     public T getRecursive(int index) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getRecursive'");
+        // not needed 
+        throw new UnsupportedOperationException("No need to implement getRecursive for ArrayDeque61B.");
     }
 
 

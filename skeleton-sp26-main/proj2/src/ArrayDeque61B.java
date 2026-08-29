@@ -101,6 +101,9 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
 
     @Override
     public T getFirst() {
+        if(isEmpty()){
+            return null;
+        }
         if(nextfirst >= items.length-1){
             return items[0];
         }
@@ -109,6 +112,9 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
 
     @Override
     public T getLast() {
+        if(isEmpty()){
+            return null;
+        }
         if(nextlast <= 0){
             return items[items.length-1];
         }
@@ -213,7 +219,7 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
             return false;
         }
 
-        ArrayDeque61B<T> O = (ArrayDeque61B<T>) other;
+        Deque61B<T> O = (Deque61B<T>) other;
         if(this.size() != O.size()){
             return false;
         }

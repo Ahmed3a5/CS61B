@@ -98,7 +98,7 @@ public class ArrayDeque61BTest {
         assertThat(alist.get(3)).isEqualTo(7);
         assertThat(alist.get(4)).isEqualTo(6);
         assertThat(alist.get(5)).isEqualTo(3);
-        assertThat(alist.get(17)).isEqualTo(null);
+        assertThat(alist.get(20)).isEqualTo(null);
         assertThat(alist.get(-1)).isEqualTo(null);
         assertThat(alist2.get(0)).isEqualTo(null);
     }

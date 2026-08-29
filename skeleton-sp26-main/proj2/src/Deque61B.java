@@ -5,7 +5,7 @@ import java.util.List;
  * that they should be completed.
  * Edited by Marcus Koh on 1/30/2026 to include getFirst and getLast
  */
-public interface Deque61B<T> {
+public interface Deque61B<T>  extends Iterable<T>{
 
     /**
      * Add {@code x} to the front of the deque. Assumes {@code x} is never null.
@@ -15,7 +15,9 @@ public interface Deque61B<T> {
     void addFirst(T x);
 
     /**
-     * Add {@code x} to the back of the deque. Assumes {@code x} is never null.
+     * Add {@code x} to the back of thepublic interface Deque61B<T> extends Iterable<T> {
+￼
+ deque. Assumes {@code x} is never null.
      *
      * @param x item to add
      */

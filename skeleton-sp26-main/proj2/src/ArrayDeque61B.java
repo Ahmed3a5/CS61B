@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class ArrayDeque61B<T> implements Deque61B<T>{
@@ -6,6 +7,28 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
     private int nextfirst;
     private int nextlast;
     public int size;
+
+    private class Arraysetiterator implements Iterator<T>{
+        private int wizpos;
+
+        public Arraysetiterator(){
+            wizpos = 0;
+        }
+
+        public boolean hasNext(){
+            if(wizpos < size){
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public T next() {
+            T returneditem = get(wizpos);
+            wizpos++;
+            return returneditem;
+        }
+    }
 
     public ArrayDeque61B(){
         items = (T[]) new Object[8];
@@ -17,7 +40,7 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
     @Override
     public void addFirst(T x) {
         if(size >= items.length){
-            return;
+            this.resizeUp(size*2);
         }
         if(nextfirst == 0){
             items[nextfirst] = x;
@@ -34,8 +57,9 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
     @Override
     public void addLast(T x){
         if(size >= items.length){
-            return;
+            this.resizeUp(size*2);
         }
+
         if(nextlast >= items.length-1){
             items[nextlast] = x;
             nextlast = 0;
@@ -93,6 +117,10 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
 
     @Override
     public T removeFirst() {
+        if(size < (items.length/4)){
+            resizeDown(items.length/2);
+        }
+
         if(nextfirst >= items.length-1){
             nextfirst = 0;
         }
@@ -132,5 +160,75 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
         throw new UnsupportedOperationException("No need to implement getRecursive for ArrayDeque61B.");
     }
 
+    private void resizeUp(int capacity){
+        T[] resizedarr = (T[]) new Object[capacity];
+
+        for(int i = 0 ; i < size ; i++){
+            resizedarr[i] = this.get(i);
+        }
+        items = resizedarr;
+        nextfirst = items.length-1;
+        nextlast = size;
+    }
+
+    private void resizeDown(int capacity){
+        T[] resizedarr = (T[]) new Object[capacity];
+        for(int i = 0 ; i < size ; i++){
+            resizedarr[i] = this.get(i);
+        }
+        items = resizedarr;
+        nextfirst = items.length-1;
+        nextlast = size;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new Arraysetiterator();
+    }
+
+    @Override
+    public boolean equals(Object other){
+        if(this == other){
+            return true;
+        }
+        if(other == null){
+            return false;
+        }
+        if(this.getClass() != other.getClass()){
+            return false;
+        }
+
+        ArrayDeque61B<T> O = (ArrayDeque61B<T>) other;
+        if(this.size() != O.size()){
+            return false;
+        }
+        for(int i = 0 ; i < O.size() ; i++){
+            if(O.get(i) != this.get(i)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+
+    public String toString(){
+
+        String returnedString = "[";
+        for(int i = 0 ; i<this.size() ; i++){
+            if(i==0){
+                returnedString += this.get(i);
+            }
+            else{
+                returnedString += ",";
+                returnedString += this.get(i);
+            }
+            
+        }
+
+        returnedString += "]";
+
+        return returnedString;
+    }
 
 }

@@ -253,6 +253,64 @@ public class ArrayDeque61BTest {
         alist.addFirst(11); // [11 ,10 ,8 ,4 ,1 ,7 ,6 ,3 ,5 ,9]
 
         assertThat(alist.toList()).containsExactly(11 , 10 , 8 , 4 , 1 , 7 , 6 , 3 , 5 , 9 ).inOrder();
+        assertThat(alist.size()).isEqualTo(10);
+        assertThat(alist.get(3)).isEqualTo(4);
 
+        alist.removeFirst();
+        alist.removeFirst();
+        alist.removeFirst();
+        alist.removeFirst();
+        alist.removeFirst();
+        alist.removeFirst();
+
+        assertThat(alist.size()).isEqualTo(4);
+        assertThat(alist.get(3)).isEqualTo(9);
+
+    }
+
+    @Test
+    public void testiteration(){
+        Deque61B<String> alist = new ArrayDeque61B<>();
+        alist.addFirst("ahmed");
+        alist.addFirst("mo");
+        alist.addFirst("so");
+
+        assertThat(alist).containsExactly("so"  , "mo" , "ahmed").inOrder();
+
+        int i = 0;
+        for(String s : alist){
+            assertThat(alist.get(i)).isEqualTo(s);
+            i++;
+        }
+    }
+
+    @Test
+    public void testEqualDeques61B() {
+        Deque61B<String> ad = new ArrayDeque61B<>();
+        Deque61B<String> ad2 = new ArrayDeque61B<>();
+
+        ad.addLast("front");
+        ad.addLast("middle");
+        ad.addLast("back");
+
+        ad2.addLast("front");
+        ad2.addLast("middle");
+        ad2.addLast("back");
+
+        assertThat(ad).isEqualTo(ad2);
+    }
+
+    public static void testToString(){
+        Deque61B<String> ad = new ArrayDeque61B<>();
+
+        ad.addLast("front");
+        ad.addLast("middle");
+        ad.addLast("back");
+
+        System.out.println(ad);
+    }
+
+    public static void main(String[] args){
+        testToString();
     }
 }

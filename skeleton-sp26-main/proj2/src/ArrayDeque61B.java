@@ -131,6 +131,7 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
             nextfirst =nextfirst+1;
         }
         T removed = items[nextfirst];
+        items[nextfirst] = null;
         size--;
        return removed;
     }
@@ -151,6 +152,7 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
             nextlast = nextlast-1;
         }
        T removed = items[nextlast];
+       items[nextlast] = null;
        size--;
        return removed;
     }
@@ -207,7 +209,7 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
         if(other == null){
             return false;
         }
-        if(this.getClass() != other.getClass()){
+        if(!(other instanceof Deque61B)){
             return false;
         }
 

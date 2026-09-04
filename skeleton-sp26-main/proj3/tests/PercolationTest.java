@@ -82,7 +82,11 @@ public class PercolationTest {
     //       write some more tests and delete the fail() line
     @Test
     public void yourFirstTestHere() {
-        fail("Did you write your own tests?");
+        Percolation perc = new Percolation(5);
+        perc.open(4 , 4);
+
+        assertThat(perc.isOpen(4, 4)).isEqualTo(true);
+        assertThat(perc.isOpen(0, 0)).isEqualTo(false);
     }
 
 }

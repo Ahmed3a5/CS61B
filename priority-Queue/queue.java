@@ -4,7 +4,7 @@ import static com.google.common.truth.Truth.assertThat;
 import org.junit.Test;
 
 public class queue {
-        private int [] keys;
+    private int [] keys;
     public int size;
 
     public queue(){

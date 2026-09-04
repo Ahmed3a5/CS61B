@@ -131,7 +131,7 @@ public class Percolation {
         // no backwash
         int N = colrowbool.length;
         int bottom = N*N-1;
-        for(int i = bottom ; i >= bottom-N ; i--){
+        for(int i = bottom ; i > bottom-N ; i--){
             if(perc.find(N*N) == perc.find(i)){
                 return true;
             }

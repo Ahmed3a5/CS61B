@@ -2,7 +2,18 @@ import java.util.Iterator;
 import java.util.Set;
 
 public class BSTMap<k extends Comparable<k>,v> implements Map61B<k,v> , Iterable<k>{
-    private class BSTMapIterator<K , v> implements Iterator<K>{
+
+    private class BSTNode<k , v>{
+        private k key;
+        private v value;
+
+        public BSTNode(k k , v v){
+            key = k;
+            value = v;
+        }
+    }
+
+    private class BSTMapIterator<BSTNode> implements Iterator<BSTNode>{
 
         private int wizpos;
 
@@ -16,51 +27,48 @@ public class BSTMap<k extends Comparable<k>,v> implements Map61B<k,v> , Iterable
             return false;
         }
 
-        public k next() {
-            k item = (K) keys[wizpos];
+        public BSTNode next() {
+            BSTNode item = (BSTNode) tree[wizpos];
             wizpos++;
 
-            return item;
+            return (BSTNode)item;
         }
     }
 
-    private k[] keys;
-    v[] values;
+    BSTNode[] tree;
     int size;
 
     public BSTMap(){
-        keys   = (k[]) new Comparable[4];
-        values = (v[]) new Object[4];
+        tree = new BSTNode[4]; 
         size = 0;
     }
     
     @Override
     public Iterator<k> iterator() {
-       return (Iterator<K>) new BSTMapIterator();
+       return (Iterator<k>) new BSTMapIterator();
     }
 
     @Override
     public void put(k key, v value) {
-        if(size >= keys.length){
+        if(size >= tree.length){
             resize(size*2);
         }
-
         if(containsKey(key)){
             int index = getindex(key);
-            values[index] = value;
+            tree[index].value = value;
         }
         else{
-            keys[size] = key;
-            values[size]  = value;
+            BSTNode n = new BSTNode(key , value);
+            tree[size] = n;
             size++;
         }
         
     }
 
     public int getindex(k key){
-        int index = 0;
+        int index = -1;
         for(int i = 0 ; i <size ; i++){
-            if (keys[i] == key){index = i;}
+            if (tree[i].key.equals(key)){index = i;}
         }
         return index;
     }
@@ -68,21 +76,15 @@ public class BSTMap<k extends Comparable<k>,v> implements Map61B<k,v> , Iterable
     @Override
     public v get(k key) {
         if(!containsKey(key)){return null;}
-        int index = 0;
-        for(int i = 0 ; i <size ; i++){
-            if (keys[i] == key){index = i;}
-        }
-        return values[index];
+        int index = getindex(key);
+        return (v) tree[index].value;
     }
 
     @Override
     public boolean containsKey(k key) {
-      for(int i = 0 ; i < size ; i ++ ){
-        if(keys[i] == key){
-            return true;
-        }
-      }
-      return false;
+       int  index = getindex(key);
+       if(index == -1){return false;}
+       return true;   
     }
 
     @Override
@@ -92,9 +94,8 @@ public class BSTMap<k extends Comparable<k>,v> implements Map61B<k,v> , Iterable
 
     @Override
     public void clear() {
-      keys = (k[]) new Comparable[4];
-      values = (v[]) new Object[4];
-      size = 0;
+        tree = new BSTNode[4];
+        size = 0;
     }
 
     @Override
@@ -110,15 +111,11 @@ public class BSTMap<k extends Comparable<k>,v> implements Map61B<k,v> , Iterable
     }
 
     public void resize(int capacity){
-        v[] newvalues = (v[]) new Object[capacity]; 
-        k[] newkeys = (k[]) new Comparable[capacity];
-
+        BSTNode[] n = new BSTNode[capacity];
         for(int i = 0 ; i < size ; i ++){
-            newkeys[i] = keys[i];
-            newvalues[i] = values[i];
+           n[i] = tree[i];
         }
-        keys = newkeys;
-        values = newvalues;
+        tree = n;
     }
     
 }

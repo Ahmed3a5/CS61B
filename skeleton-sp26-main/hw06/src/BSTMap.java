@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -18,20 +19,34 @@ public class BSTMap<k extends Comparable<k>,v> implements Map61B<k,v> , Iterable
         }
     }
 
-    private class BSTMapIterator<BSTNode> implements Iterator<BSTNode>{
+    private class BSTMapIterator<k> implements Iterator<k>{
 
-        BSTNode wizNode;
-        int i;
+        ArrayList<k> keys;
+        int wizpos;
+
         public BSTMapIterator(){
-            wizNode = (BSTNode) root;
+            keys = new ArrayList<>();
+            wizpos =0;
+            preordersearch(keys, root,0);
+        }
+
+        public void preordersearch(ArrayList keys , BSTNode n , int i){
+            if(n == null){return;}
+            ((ArrayList<K>) keys).add(i ,(K) n.key);
+            preordersearch(keys, n.left, i+1);
+            preordersearch(keys, n.right, i+1);
         }
         public boolean hasNext(){
-            if(wizNode != null && i < size ){return true;}
-            return false;
+           if(wizpos < keys.size()){
+            return true;
+           }
+           return false;
         }
 
-        public BSTNode next() {
-                return null;
+        public k next() {
+            k key = keys.get(wizpos);
+            wizpos++;
+            return key;
         }
     }
 

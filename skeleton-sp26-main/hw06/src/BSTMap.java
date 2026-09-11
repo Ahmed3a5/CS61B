@@ -1,3 +1,4 @@
+
 import java.util.Iterator;
 import java.util.Set;
 
@@ -6,40 +7,39 @@ public class BSTMap<k extends Comparable<k>,v> implements Map61B<k,v> , Iterable
     private class BSTNode<k , v>{
         private k key;
         private v value;
+        private BSTNode right;
+        private BSTNode left;
 
-        public BSTNode(k k , v v){
+        public BSTNode(k k , v v , BSTNode lt , BSTNode rt){
             key = k;
             value = v;
+            right = rt;
+            left = lt;
         }
     }
 
     private class BSTMapIterator<BSTNode> implements Iterator<BSTNode>{
 
-        private int wizpos;
-
+        BSTNode wizNode;
+        int i;
         public BSTMapIterator(){
-            wizpos =0;
+            wizNode = (BSTNode) root;
         }
         public boolean hasNext(){
-            if(wizpos < size){
-                return true;
-            }
+            if(wizNode != null && i < size ){return true;}
             return false;
         }
 
         public BSTNode next() {
-            BSTNode item = (BSTNode) tree[wizpos];
-            wizpos++;
-
-            return (BSTNode)item;
+                return null;
         }
     }
 
-    BSTNode[] tree;
-    int size;
+    private BSTNode root;
+    private int size;
 
     public BSTMap(){
-        tree = new BSTNode[4]; 
+        root = null; 
         size = 0;
     }
     
@@ -50,41 +50,69 @@ public class BSTMap<k extends Comparable<k>,v> implements Map61B<k,v> , Iterable
 
     @Override
     public void put(k key, v value) {
-        if(size >= tree.length){
-            resize(size*2);
-        }
-        if(containsKey(key)){
-            int index = getindex(key);
-            tree[index].value = value;
+        if(size == 0){
+           BSTNode n = new BSTNode(key , value , null , null);
+           root = n;
+           size++; 
         }
         else{
-            BSTNode n = new BSTNode(key , value);
-            tree[size] = n;
+            BSTNode n = root;
+            BSTNode parent = n;
+            while(n !=null){
+                parent = n;
+                int cmp = key.compareTo((k) n.key);
+                if(cmp == 0){n.value = value; return;}
+                if(cmp < 0){
+                    n = n.left;
+                }
+                else{
+                    n = n.right;
+                }
+            }
+
+            if(key.compareTo((k) parent.key) < 0){
+                parent.left = new BSTNode<k,v>(key, value, null, null);
+            }
+            else{
+                parent.right = new BSTNode<k ,v>(key , value , null , null);
+            }
             size++;
+
         }
-        
+
     }
 
-    public int getindex(k key){
-        int index = -1;
-        for(int i = 0 ; i <size ; i++){
-            if (tree[i].key.equals(key)){index = i;}
+    public BSTNode getNode(k key){
+        BSTNode n = root;
+        while(n != null){
+            int cmp = key.compareTo((k) n.key);
+            if(cmp == 0){
+                return n;
+            }
+            if(cmp < 0){
+                n = n.left;
+            }
+            else{
+                n = n.right;
+            } 
         }
-        return index;
+        return null;
     }
 
     @Override
     public v get(k key) {
-        if(!containsKey(key)){return null;}
-        int index = getindex(key);
-        return (v) tree[index].value;
+        BSTNode target = getNode(key);
+        if(target == null){return null;}
+        return (v) target.value;
     }
 
     @Override
     public boolean containsKey(k key) {
-       int  index = getindex(key);
-       if(index == -1){return false;}
-       return true;   
+       BSTNode target = getNode(key);
+       if(target != null){
+        return true;
+       }
+       return false;
     }
 
     @Override
@@ -94,7 +122,7 @@ public class BSTMap<k extends Comparable<k>,v> implements Map61B<k,v> , Iterable
 
     @Override
     public void clear() {
-        tree = new BSTNode[4];
+        root = null;
         size = 0;
     }
 
@@ -107,15 +135,6 @@ public class BSTMap<k extends Comparable<k>,v> implements Map61B<k,v> , Iterable
     @Override
     public v remove(k key) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+        throw new UnsupportedOperationException("Unimplemented method 'keySet'");
     }
-
-    public void resize(int capacity){
-        BSTNode[] n = new BSTNode[capacity];
-        for(int i = 0 ; i < size ; i ++){
-           n[i] = tree[i];
-        }
-        tree = n;
-    }
-    
 }

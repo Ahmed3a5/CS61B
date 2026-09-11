@@ -27,14 +27,14 @@ public class BSTMap<k extends Comparable<k>,v> implements Map61B<k,v> , Iterable
         public BSTMapIterator(){
             keys = new ArrayList<>();
             wizpos =0;
-            preordersearch(keys, root,0);
+            preordersearch(keys, root);
         }
 
-        public void preordersearch(ArrayList keys , BSTNode n , int i){
+        public void preordersearch(ArrayList keys , BSTNode n){
             if(n == null){return;}
-            ((ArrayList<K>) keys).add(i ,(K) n.key);
-            preordersearch(keys, n.left, i+1);
-            preordersearch(keys, n.right, i+1);
+            ((ArrayList<k>) keys).add((k) n.key);
+            preordersearch(keys, n.left);
+            preordersearch(keys, n.right);
         }
         public boolean hasNext(){
            if(wizpos < keys.size()){
@@ -151,5 +151,19 @@ public class BSTMap<k extends Comparable<k>,v> implements Map61B<k,v> , Iterable
     public v remove(k key) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'keySet'");
+    }
+
+    public static void main(String[] args){
+        BSTMap<String , Integer> map = new BSTMap<>();
+        map.put("ahmed", 1);
+        map.put("ashraf", 2);
+        map.put("ameer", 3);
+        map.put("mohamed", 4);
+        map.put("basem", 5);
+
+        for(String k : map){
+            System.out.println(k);
+        }
+
     }
 }

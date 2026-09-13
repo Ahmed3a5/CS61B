@@ -153,17 +153,32 @@ public class BSTMap<k extends Comparable<k>,v> implements Map61B<k,v> , Iterable
         throw new UnsupportedOperationException("Unimplemented method 'keySet'");
     }
 
-    public static void main(String[] args){
-        BSTMap<String , Integer> map = new BSTMap<>();
-        map.put("ahmed", 1);
-        map.put("ashraf", 2);
-        map.put("ameer", 3);
-        map.put("mohamed", 4);
-        map.put("basem", 5);
+    private BSTNode findsuccessorhelper(BSTNode node){
+        if(node.left == null){return node;}
+        return findsuccessorhelper(node.left);
+    }
 
-        for(String k : map){
+    public BSTNode findsuccessor(){
+        return findsuccessorhelper(root.right);
+    }
+
+    public static void main(String[] args){
+        BSTMap<Integer , String> map = new BSTMap<>();
+        map.put(7,"ahmed" );
+        map.put(2, "ashraf");
+        map.put(3, "ameer");
+        map.put(5, "m");
+        map.put(4, "aer");
+        map.put(1, "a");
+        map.put(14, "mohamed");
+        map.put(12, "basem");
+        map.put(13, "b");
+        map.put(15, "c");
+
+        for(Integer k : map){
             System.out.println(k);
         }
 
+        System.out.println(map.findsuccessor().value);
     }
 }

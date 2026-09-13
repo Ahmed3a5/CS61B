@@ -114,6 +114,26 @@ public class BSTMap<k extends Comparable<k>,v> implements Map61B<k,v> , Iterable
         return null;
     }
 
+    private BSTNode getNodeparent(k key){
+        BSTNode n = root;
+        BSTNode parent = null;
+        while(n != null){
+            int cmp = key.compareTo((k) n.key);
+            if(cmp == 0){
+                return parent;
+            }
+            if(cmp < 0){
+                parent = n;
+                n = n.left;
+            }
+            else{
+                parent = n;
+                n = n.right;
+            } 
+        }
+        return null;
+    }
+
     @Override
     public v get(k key) {
         BSTNode target = getNode(key);
@@ -148,7 +168,7 @@ public class BSTMap<k extends Comparable<k>,v> implements Map61B<k,v> , Iterable
     }
 
     @Override
-    public v remove(k key) {
+    public v remove(k key) { 
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'keySet'");
     }
@@ -158,8 +178,9 @@ public class BSTMap<k extends Comparable<k>,v> implements Map61B<k,v> , Iterable
         return findsuccessorhelper(node.left);
     }
 
-    public BSTNode findsuccessor(){
-        return findsuccessorhelper(root.right);
+    public BSTNode findsuccessor(k key){
+        BSTNode node = getNode(key);
+        return findsuccessorhelper(node.right);
     }
 
     public static void main(String[] args){

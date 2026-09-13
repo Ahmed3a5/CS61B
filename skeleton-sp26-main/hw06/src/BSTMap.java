@@ -2,6 +2,7 @@
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class BSTMap<k extends Comparable<k>,v> implements Map61B<k,v> , Iterable<k>{
 
@@ -163,16 +164,59 @@ public class BSTMap<k extends Comparable<k>,v> implements Map61B<k,v> , Iterable
 
     @Override
     public Set<k> keySet() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'keySet'");
+        Set<k> keys = new TreeSet<>();
+        for(k key : this){
+            keys.add(key);
+        }
+        return keys;
     }
 
     @Override
     public v remove(k key) { 
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'keySet'");
-    }
+        // the 3 cases 
+        // if it has 2 childs 
+        // we find the successor 
+        // replace its valuse with node we need to remove 
+        // then we make the parent os the successor to point to the successor right 
+        // if it is a leaf we just make the pointer of the parent to be null
+        // if it has a one child we assume it as in the right or the left then we change the parent pointer to point to the child of the remove
+        // node then the garabage collector remove the unpointed nodes 
+        
+        BSTNode node = getNode(key);
+        if(node == null){return null;}
 
+        v removedv = (v)node.value;
+
+        BSTNode parent = getNodeparent(key);
+
+        if(node.left != null && node.right != null){
+            BSTNode succ = findsuccessor(key);
+            BSTNode succparent = getNodeparent((k)succ.key);
+            node.key = succ.key;
+            node.value = succ.value;
+            if(succparent.right == succ){succparent.right = succ.right;}
+            else{succparent.left = succ.right;}
+        }
+        else{
+            if(node.left == null && node.right == null){
+                if(parent == null){root = null;}
+                else if(parent.right == node){parent.right = null;}
+                else{parent.left = null;}
+            }
+            else{
+                BSTNode child;
+                if(node.left != null){child = node.left;}
+                else{child = node.right;}
+
+                if(parent == null){root = child;}
+                else if(parent.right == node){parent.right = child;}
+                else{parent.left = child;}
+            }
+        }
+        size--;
+        return removedv;
+    }
+    
     private BSTNode findsuccessorhelper(BSTNode node){
         if(node.left == null){return node;}
         return findsuccessorhelper(node.left);
@@ -200,6 +244,6 @@ public class BSTMap<k extends Comparable<k>,v> implements Map61B<k,v> , Iterable
             System.out.println(k);
         }
 
-        System.out.println(map.findsuccessor().value);
+        // System.out.println(map.findsuccessor().value);
     }
 }

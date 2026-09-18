@@ -1,12 +1,13 @@
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
 public class BSTMap<k extends Comparable<k>,v> implements Map61B<k,v> , Iterable<k>{
 
-    private class BSTNode<k , v>{
+    private class BSTNode{
         private k key;
         private v value;
         private BSTNode right;
@@ -28,14 +29,14 @@ public class BSTMap<k extends Comparable<k>,v> implements Map61B<k,v> , Iterable
         public BSTMapIterator(){
             keys = new ArrayList<>();
             wizpos =0;
-            preordersearch(keys, root);
+            inordersearch(keys, root);
         }
 
-        public void preordersearch(ArrayList keys , BSTNode n){
+        public void inordersearch(ArrayList keys , BSTNode n){
             if(n == null){return;}
+            inordersearch(keys, n.left);
             ((ArrayList<k>) keys).add((k) n.key);
-            preordersearch(keys, n.left);
-            preordersearch(keys, n.right);
+            inordersearch(keys, n.right);
         }
         public boolean hasNext(){
            if(wizpos < keys.size()){
@@ -87,10 +88,10 @@ public class BSTMap<k extends Comparable<k>,v> implements Map61B<k,v> , Iterable
             }
 
             if(key.compareTo((k) parent.key) < 0){
-                parent.left = new BSTNode<k,v>(key, value, null, null);
+                parent.left = new BSTNode(key, value, null, null);
             }
             else{
-                parent.right = new BSTNode<k ,v>(key , value , null , null);
+                parent.right = new BSTNode(key , value , null , null);
             }
             size++;
 
@@ -98,7 +99,7 @@ public class BSTMap<k extends Comparable<k>,v> implements Map61B<k,v> , Iterable
 
     }
 
-    public BSTNode getNode(k key){
+    private BSTNode getNode(k key){
         BSTNode n = root;
         while(n != null){
             int cmp = key.compareTo((k) n.key);
@@ -222,7 +223,7 @@ public class BSTMap<k extends Comparable<k>,v> implements Map61B<k,v> , Iterable
         return findsuccessorhelper(node.left);
     }
 
-    public BSTNode findsuccessor(k key){
+    private BSTNode findsuccessor(k key){
         BSTNode node = getNode(key);
         return findsuccessorhelper(node.right);
     }

@@ -70,7 +70,7 @@ public class TimeSeriesTest {
         ts.put(1992, 100.0);
         ts.put(1994, 200.0);
 
-        List lst1 = new ArrayList<>();
+        List<Object> lst1 = new ArrayList<>();
         lst1.add(1991);
         lst1.add(1992);
         lst1.add(1994);
@@ -88,7 +88,7 @@ public class TimeSeriesTest {
         ts3.put(1992, 100.0);
         ts3.put(1991, 200.0);
 
-        List lst2 = new ArrayList<>();
+        List<Object> lst2 = new ArrayList<>();
         lst2.add(1991);
         lst2.add(1992);
         lst2.add(1994);
@@ -103,7 +103,7 @@ public class TimeSeriesTest {
         ts.put(1992, 100.0);
         ts.put(1994, 200.0);
 
-        List lst1 = new ArrayList<>();
+        List<Object> lst1 = new ArrayList<>();
         lst1.add(0.0);
         lst1.add(100.0);
         lst1.add(200.0);
@@ -121,7 +121,7 @@ public class TimeSeriesTest {
         ts3.put(1992, 100.0);
         ts3.put(1991, 200.0);
 
-        List lst2 = new ArrayList<>();
+        List<Object> lst2 = new ArrayList<>();
         lst2.add(200.0);
         lst2.add(100.0);
         lst2.add(0.0);

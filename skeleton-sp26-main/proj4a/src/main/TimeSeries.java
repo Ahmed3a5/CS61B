@@ -2,7 +2,6 @@ package main;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.TreeMap;
 
 /**
@@ -32,14 +31,13 @@ public class TimeSeries extends TreeMap<Integer, Double>{
      */
     public TimeSeries(TimeSeries ts, int startYear, int endYear) {
         super();
-        TimeSeries copy = new TimeSeries();
         for(int key : ts.keySet()){
             if(key >= startYear && key <= endYear){
-                copy.put(key , ts.get(key));
+                this.put(key , ts.get(key));
             }
         }
         
-        ts = copy;
+         
     }
 
     /**
@@ -84,15 +82,6 @@ public class TimeSeries extends TreeMap<Integer, Double>{
      */
     public TimeSeries plus(TimeSeries ts) {
         TimeSeries fTs = new TimeSeries();
-        if(ts.isEmpty()){
-            fTs = this;
-            return fTs;
-        }
-        else if(this.isEmpty()){
-            fTs = ts;
-            return fTs;
-        }
-        else{
             for(int year : this.years()){
                 if(ts.containsKey(year)){
                     double sum = ts.get(year) + this.get(year);
@@ -102,7 +91,6 @@ public class TimeSeries extends TreeMap<Integer, Double>{
                     fTs.put(year , this.get(year));
                 }
             }
-        }
 
         for(int year : ts.years()){
             if(!fTs.containsKey(year)){
@@ -124,9 +112,6 @@ public class TimeSeries extends TreeMap<Integer, Double>{
      */
     public TimeSeries dividedBy(TimeSeries ts) {
         TimeSeries fTs = new TimeSeries();
-        if(ts.isEmpty()){
-            throw new IllegalArgumentException("the ts is empty");
-        }
         for(int year : this.years()){
             if(!ts.containsKey(year)){
                 throw new IllegalArgumentException("the year is missed");

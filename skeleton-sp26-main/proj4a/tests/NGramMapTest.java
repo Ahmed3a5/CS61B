@@ -4,7 +4,9 @@ import main.TimeSeries;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static main.Main.*;
 import static com.google.common.truth.Truth.assertThat;
@@ -15,7 +17,8 @@ import static com.google.common.truth.Truth.assertThat;
 public class NGramMapTest {
     @Test
     public void testCountHistory() {
-        NGramMap ngm = new NGramMap(WORD_HISTORY_SIZE3_FILE, YEAR_HISTORY_FILE);
+        NGramMap ngm = new NGramMap("./skeleton-sp26-main/proj4a/data/word_history_size3.csv",
+        "./skeleton-sp26-main/proj4a/data/year_history.csv");
         List<Integer> expectedYears = new ArrayList<>();
         expectedYears.add(2005);
         expectedYears.add(2006);
@@ -54,7 +57,8 @@ public class NGramMapTest {
     @Test
     public void testOnShortFile() {
         // creates an NGramMap from a large dataset
-        NGramMap ngm = new NGramMap(WORD_HISTORY_SIZE4_FILE, YEAR_HISTORY_FILE);
+        NGramMap ngm = new NGramMap("./skeleton-sp26-main/proj4a/data/word_history_size4.csv",
+        "./skeleton-sp26-main/proj4a/data/year_history.csv");
 
         // returns the count of the number of occurrences of economically per year between 2000 and 2010.
         TimeSeries econCount = ngm.countHistory("economically", 2000, 2010);
@@ -72,7 +76,8 @@ public class NGramMapTest {
     @Test
     public void testOnLargeFile() {
         // creates an NGramMap from a large dataset
-        NGramMap ngm = new NGramMap(WORD_HISTORY_SIZE14377_FILE, YEAR_HISTORY_FILE);
+        NGramMap ngm = new NGramMap("./skeleton-sp26-main/proj4a/data/word_history_size14377.csv",
+        "./skeleton-sp26-main/proj4a/data/year_history.csv");
 
         // returns the count of the number of occurrences of fish per year between 1850 and 1933.
         TimeSeries fishCount = ngm.countHistory("fish", 1850, 1933);
@@ -96,6 +101,24 @@ public class NGramMapTest {
 
         double expectedFishPlusDogWeight1865 = (136497.0 + 75819.0) / 2563919231.0;
         assertThat(fishPlusDogWeight.get(1865)).isWithin(1E-10).of(expectedFishPlusDogWeight1865);
+    }
+
+    @Test
+    public void testTotalcountHistory(){
+        NGramMap ngm = new NGramMap("./skeleton-sp26-main/proj4a/data/word_history_size3.csv",
+        "./skeleton-sp26-main/proj4a/data/year_history.csv");
+
+        Map<Integer , Double> expectedtotalcountyears = new HashMap<>();
+        expectedtotalcountyears.put(1470 , 984.0);
+        expectedtotalcountyears.put(1472 , 117652.0);
+        expectedtotalcountyears.put(1475 , 328918.0);
+
+        TimeSeries totacountsyears = ngm.totalCountHistory();
+        assertThat(totacountsyears.get(1470)).isEqualTo(expectedtotalcountyears.get(1470));
+        assertThat(totacountsyears.get(1472)).isEqualTo(expectedtotalcountyears.get(1472));
+        assertThat(totacountsyears.get(1475)).isEqualTo(expectedtotalcountyears.get(1475));
+
+
     }
 
 }

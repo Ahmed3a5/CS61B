@@ -122,4 +122,12 @@ public class TimeSeries extends TreeMap<Integer, Double>{
         return fTs;
     }
 
+    public String toString(){
+        String fin = "";
+        for(Integer y : this.years()){
+            fin+= y + "=" + this.get(y) + ",";
+        }
+        return fin.replaceAll(",$", "");
+    }
+
 }

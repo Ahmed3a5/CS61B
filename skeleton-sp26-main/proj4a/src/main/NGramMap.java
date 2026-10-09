@@ -22,7 +22,7 @@ import static main.TimeSeries.MIN_YEAR;
  */
 public class NGramMap {
 
-    private Map<String , Map<Integer , Double>> wordsHistory = new HashMap<>();
+    private Map<String , TimeSeries> wordsHistory = new HashMap<>();
     private Map<Integer , Double> yearsTotalwords = new HashMap<>();
 
     /**
@@ -36,7 +36,7 @@ public class NGramMap {
             String nextline = words.readLine();
             String[] linewords = nextline.split("\\s+");
             if(!wordsHistory.containsKey(linewords[0])){
-                wordsHistory.put(linewords[0] , new HashMap<>());
+                wordsHistory.put(linewords[0] , new TimeSeries());
             }
             wordsHistory.get(linewords[0]).put(Integer.parseInt(linewords[1]) , Double.parseDouble(linewords[2]));
         }

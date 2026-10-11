@@ -6,7 +6,6 @@ import java.util.Queue;
 public class BFS {
     boolean [] marked;
     int[] edgTo;
-
     int S;
     
     public BFS(graph G , int s){

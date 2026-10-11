@@ -32,9 +32,10 @@ public class Main {
     public static void main(String[] args) {
         NgordnetServer hns = new NgordnetServer();
 
+        WordNet ngm = new WordNet("./skeleton-sp26-main/proj4cd/data/synsets_size16.txt", "../skeleton-sp26-main/proj4cd/data/hyponyms_size16.txt");
+
         hns.startUp();
-        // TODO: modify HyponymsHandler
-        // hns.register("hyponyms", new HyponymsHandler());
+        hns.register("hyponyms", new HyponymsHandler(ngm));
 
         System.out.println("Finished server startup! Visit http://localhost:4567/ngordnet.html");
     }

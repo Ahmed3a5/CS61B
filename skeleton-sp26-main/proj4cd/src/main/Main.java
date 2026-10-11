@@ -32,7 +32,7 @@ public class Main {
     public static void main(String[] args) {
         NgordnetServer hns = new NgordnetServer();
 
-        WordNet ngm = new WordNet("./skeleton-sp26-main/proj4cd/data/synsets_size16.txt", "../skeleton-sp26-main/proj4cd/data/hyponyms_size16.txt");
+        WordNet ngm = new WordNet("./data/synsets_size16.txt", "./data/hyponyms_size16.txt");
 
         hns.startUp();
         hns.register("hyponyms", new HyponymsHandler(ngm));

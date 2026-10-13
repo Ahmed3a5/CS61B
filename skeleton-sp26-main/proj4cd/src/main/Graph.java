@@ -16,10 +16,10 @@ public class Graph {
         VNum = v;
         ENum = 0;
         adjv = new HashMap<>();
+    }
 
-        for(int i = 0 ; i < VNum ; i++){
-            adjv.put(i , new ArrayList<>());
-        }
+    public void addv(int v){
+        adjv.put(v , new ArrayList<>());
     }
 
     public void addEdge(int v1 , int v2){

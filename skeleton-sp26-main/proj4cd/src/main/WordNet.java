@@ -1,6 +1,7 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -10,7 +11,7 @@ import edu.princeton.cs.algs4.In;
 
 public class WordNet {
     public Map<String , ArrayList<Integer>> IDs = new TreeMap<>();
-    public ArrayList<ArrayList<String>> words = new ArrayList<>();
+    public Map<Integer , ArrayList<String>> words = new HashMap<>();
     public Graph wordsGraph;
     
     public WordNet(String synsets , String hyponems ){
@@ -33,7 +34,7 @@ public class WordNet {
                         IDs.get(word).add(id);
                 }
             }
-            words.add(synsetwords);
+            words.put(id , synsetwords);
         }
 
         wordsGraph = new Graph(words.size());
@@ -41,8 +42,12 @@ public class WordNet {
         while(!filegragh.isEmpty()){
             String nextline = filegragh.readLine();
             String[] linenums = nextline.split(",");
+            int v = Integer.parseInt(linenums[0]);
+            wordsGraph.addv(v);
             for(int i = 1 ; i < linenums.length ; i++){
-                wordsGraph.addEdge(Integer.parseInt(linenums[0]), Integer.parseInt(linenums[i]));
+                int v2 = Integer.parseInt(linenums[i]);
+                wordsGraph.addv(v2);
+                wordsGraph.addEdge(v , v2 );
             }
         }
     }

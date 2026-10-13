@@ -32,8 +32,8 @@ public class Main {
     public static void main(String[] args) {
         NgordnetServer hns = new NgordnetServer();
 
-        WordNet wordnet = new WordNet("./data/synsets_eecs.txt", "./data/hyponyms_eecs.txt");
-        NGramMap ngm = new NGramMap("./data/word_history_eecs.csv", "./data/year_history.csv");
+        WordNet wordnet = new WordNet("./data/synsets_size25.txt", "./data/hyponyms_size25.txt");
+        NGramMap ngm = new NGramMap("./data/word_history_size25.csv", "./data/year_history.csv");
 
         hns.startUp();
         hns.register("hyponyms", new HyponymsHandler(wordnet,ngm));

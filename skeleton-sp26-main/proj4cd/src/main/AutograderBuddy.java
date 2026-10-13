@@ -10,7 +10,8 @@ public class AutograderBuddy {
             String synsetFile, String hyponymFile){
 
 
-        WordNet ngm = new WordNet(synsetFile, hyponymFile);
-        return new HyponymsHandler(ngm);
+        WordNet wordnet = new WordNet(synsetFile, hyponymFile);
+        NGramMap ngm = new NGramMap(wordHistoryFile, yearHistoryFile);
+        return new HyponymsHandler(wordnet,ngm);
     }
 }

@@ -37,19 +37,7 @@ public class WordNet {
             words.put(id , synsetwords);
         }
 
-        wordsGraph = new Graph(words.size());
-
-        while(!filegragh.isEmpty()){
-            String nextline = filegragh.readLine();
-            String[] linenums = nextline.split(",");
-            int v = Integer.parseInt(linenums[0]);
-            wordsGraph.addv(v);
-            for(int i = 1 ; i < linenums.length ; i++){
-                int v2 = Integer.parseInt(linenums[i]);
-                wordsGraph.addv(v2);
-                wordsGraph.addEdge(v , v2 );
-            }
-        }
+        wordsGraph = new Graph(filegragh);
     }
 
     public ArrayList<Integer> getId(String word){

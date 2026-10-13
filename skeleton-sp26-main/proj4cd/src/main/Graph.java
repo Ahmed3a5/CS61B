@@ -5,17 +5,31 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import edu.princeton.cs.algs4.In;
+
 
 public class Graph {
-    public int VNum;
-    public int ENum;
-    public Map<Integer , ArrayList<Integer>> adjv;    // adjucent list for all vertex this represent a list of all edges from this vertex 
-                                        // the index of the array repersent the ID of the word in the file
+    private int VNum;
+    private int ENum;
+    private Map<Integer , ArrayList<Integer>> adjv = new HashMap<>();;    // adjucent list for all vertex this represent a list of all edges from this vertex 
+                                                      // the index of the array repersent the ID of the word in the file
 
-    public Graph(int v){    
-        VNum = v;
+    public Graph(In File){ 
+        while(!File.isEmpty()){
+            String nextline = File.readLine();
+            String[] linenums = nextline.split(",");
+            int v = Integer.parseInt(linenums[0]);
+            if(!adjv.containsKey(v)){adjv.put(v , new ArrayList<>());}
+            for(int i = 1 ; i < linenums.length ; i++){
+                int v2 = Integer.parseInt(linenums[i]);
+                if(!adjv.containsKey(v2)){
+                    adjv.put(v2 , new ArrayList<>());
+                }
+                adjv.get(v).add(v2);
+            }
+        }
+        VNum = adjv.size();
         ENum = 0;
-        adjv = new HashMap<>();
     }
 
     public void addv(int v){

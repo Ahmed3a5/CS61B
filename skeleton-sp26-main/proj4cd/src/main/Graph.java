@@ -10,7 +10,6 @@ import edu.princeton.cs.algs4.In;
 
 public class Graph {
     private int VNum;
-    private int ENum;
     private Map<Integer , ArrayList<Integer>> adjv = new HashMap<>();;    // adjucent list for all vertex this represent a list of all edges from this vertex 
                                                       // the index of the array repersent the ID of the word in the file
 
@@ -29,18 +28,10 @@ public class Graph {
             }
         }
         VNum = adjv.size();
-        ENum = 0;
     }
 
     public void addv(int v){
         adjv.put(v , new ArrayList<>());
-    }
-
-    public void addEdge(int v1 , int v2){
-        if(!isEdgeTo(v1, v2) ){
-            adjv.get(v1).add(v2);   // direction of the grapgh from the v1 to v2 
-            ENum++;
-        }
     }
 
     public ArrayList<Integer> adj(int v){

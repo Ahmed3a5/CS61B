@@ -30,10 +30,6 @@ public class Graph {
         VNum = adjv.size();
     }
 
-    public void addv(int v){
-        adjv.put(v , new ArrayList<>());
-    }
-
     public ArrayList<Integer> adj(int v){
         return adjv.get(v);    // retrun the list of the hyponems of the vertex ID 
     }

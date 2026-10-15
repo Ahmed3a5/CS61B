@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 // Feel free to copy over your handlers from 4A and import them here!
 
 public class Main {
-    private static final String PREFIX = "./data/";
+    private static final String PREFIX = "./skeleton-sp26-main/proj4cd/data/";
 
     /** NGrams Files */
     private static final String WORD_HISTORY_EECS_FILE = PREFIX + "word_history_eecs.csv";
@@ -32,8 +32,9 @@ public class Main {
     public static void main(String[] args) {
         NgordnetServer hns = new NgordnetServer();
 
-        WordNet wordnet = new WordNet("./data/synsets_size25.txt", "./data/hyponyms_size25.txt");
-        NGramMap ngm = new NGramMap("./data/word_history_size25.csv", "./data/year_history.csv");
+        WordNet wordnet = new WordNet(SYNSETS_EECS_FILE , HYPONYMS_EECS_FILE);
+        NGramMap ngm = new NGramMap(WORD_HISTORY_EECS_FILE, YEAR_HISTORY_FILE);
+
 
         hns.startUp();
         hns.register("hyponyms", new HyponymsHandler(wordnet,ngm));

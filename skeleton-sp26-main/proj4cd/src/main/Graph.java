@@ -34,15 +34,6 @@ public class Graph {
         return adjv.get(v);    // retrun the list of the hyponems of the vertex ID 
     }
 
-    public boolean isEdgeTo(int v , int u){
-        for( Object x : adj(v)){
-            if(x.equals(u)){
-                return true;
-            }
-        }
-        return false;
-    }
-
     public int v(){
         return this.VNum;
     } 
